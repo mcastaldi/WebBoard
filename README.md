@@ -31,6 +31,7 @@ One big thing that was pointed out during presentation was that it wasn't so muc
 <li>Email notifications for followed organizations and events</li>
 <li>Some kind of actual billboard functionality, like the ability too add flier images or something with drag and dropping stuff on the board.</li>
 <li>Added functionality to announcements, like timing or modal pop-ups.</li>
+<li>Have stuff scale down better on Mobile</li>
 </ol>
 
 <h4>Back-end:</h4>

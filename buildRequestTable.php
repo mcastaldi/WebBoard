@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="icon" href="favicon.ico"/>
-  <link href="fcStylesheet.css" rel="stylesheet" type="text/css" />
-  <link href="adminStylesheet.css" rel="stylesheet" type="text/css" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
     table{
@@ -73,7 +70,6 @@
             {
                 $newDate= new DateTime($row['evt_start_date']);
                 $newTime= new DateTime($row['evt_start_time']);
-
                 echo "<tr><td class='reqNum'>" . $row['eventId']. "</td><td>" . $row['evt_name'] . "</td><td>" . 
                     $row['evt_category'] . "</td><td>" . $newDate->format('n-j-y') . 
                     "</td><td>" . $newTime->format('g:ia') . 

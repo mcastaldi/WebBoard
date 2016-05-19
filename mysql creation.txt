@@ -1,0 +1,60 @@
+CREATE DATABASE LTUBillboard;
+
+USE LTUBillboard;
+
+CREATE TABLE ltuorganization (
+    orgId INT(6) NOT NULL AUTO_INCREMENT,
+    org_name VARCHAR(50) NOT NULL,
+    org_description TEXT NOT NULL,
+    org_website VARCHAR(50) NOT NULL,
+	login_password VARCHAR(50) NOT NULL,
+	org_email VARCHAR(255) NOT NULL,
+    org_accepted TINYINT(1) NOT NULL,
+    PRIMARY KEY (orgId)
+);
+
+CREATE TABLE ltuevents (
+    eventId INT(6) NOT NULL AUTO_INCREMENT, 
+    org_id INT(6) NOT NULL,
+    is_private TINYINT(1) NOT NULL,
+    evt_name VARCHAR(50) NOT NULL,
+    evt_room VARCHAR(50) NOT NULL,
+    evt_category VARCHAR(50) NOT NULL,
+    evt_start_date DATE NOT NULL,
+	evt_end_date DATE NOT NULL,
+    evt_start_time TIME NOT NULL,
+    evt_end_time TIME NOT NULL,
+    evt_desc TEXT NOT NULL,
+	evt_url VARCHAR(255) NOT NULL,
+    evt_visible TINYINT(1) NOT NULL,
+    primary key (eventId),
+    INDEX (org_id)
+);
+
+CREATE TABLE user_account (
+	userId INT(6) NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    login_password VARCHAR(50) NOT NULL,
+    is_admin TINYINT(1) NOT NULL,
+	user_email VARCHAR(255) NOT NULL,
+	receive_emails TINYINT(1) NOT NULL,
+    PRIMARY KEY (userId)
+);
+
+CREATE TABLE user_org_join (
+	userId INT(6) NOT NULL,
+	orgId INT(6) NOT NULL,
+	primary key (userId,orgId)
+);
+
+CREATE TABLE user_event_join(
+	userId INT(6) NOT NULL,
+	eventId INT(6) NOT NULL
+);
+
+CREATE TABLE admin_announcements(
+	announceId INT(6) NOT NULL AUTO_INCREMENT,
+	announce_desc TEXT NOT NULL,
+        primary key (announceId)
+);

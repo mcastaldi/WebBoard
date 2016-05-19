@@ -1,0 +1,130 @@
+/*stylesheet.css*/
+body{
+  margin:0;
+  padding:0;
+  font-size:100%;
+  background-color:#06c;
+  font-family:Arial, Helvetica, sans-serif;
+}
+header{
+  background-color:#0685ff;
+  padding-bottom:2em;
+  margin-bottom:1em;
+}
+.event{
+  display:none;
+  float:left;
+  margin-left:1.4em;
+  margin-top:1.4em;
+  background-color:#003d78;
+  color:white;
+  border:none;
+  align:center;
+  padding:0.4em 01em;
+  font-size:1.1em;
+}
+#logo{
+  color:#003265;
+  font-size:3em;
+  float:left;
+  padding-left:2%;
+  padding-top:3px;
+  text-decoration:none;
+}
+.log-in{
+  float:right;
+  text-align:right;
+  margin-right:1.1em;
+  margin-top:0.9em;
+  font-size:0.95em;
+}
+#loginButton{
+  margin-bottom:0.6em;
+  background-color:#003d78;
+  color:white;
+  border:none;
+  align:center;
+  padding:0.4em 1em;
+  font-size:1.1em;
+}
+#logoutButton{
+  margin-bottom:0.6em;
+  background-color:#003d78;
+  color:white;
+  border:none;
+  align:center;
+  padding:0.4em 1em;
+  font-size:1.1em;
+}
+#theWrap{
+  clear:both;
+  width:80%;
+  margin:0px auto 4em auto;
+}
+#topWrap{
+  float:left;
+  width:100%;
+  margin:0;
+  padding-top:0.5em;
+  background-color:#004299;
+  color:white;
+}
+.subheader{
+  float:left;
+  padding:0px 3% 0px 3%;
+  margin:0 auto;
+  width:44%; 
+}
+header a, .subheader a{
+ color:white;
+}
+.subTitle{
+  font-size:1.6em; 
+  font-weight:bold;
+}
+.subList{
+  list-style-type:square;
+  list-style-position:inside;
+  font-size:1em;  
+  line-height:1.4;
+  display:inline;
+}
+#calendarWrapper{
+  clear:both;
+  width:100%;
+  margin:1em auto 0px auto;
+  background-color:#0084ff;
+  color:white;
+  height:3.5em;
+}
+#dropdown{
+  float:left;
+  margin:1em 0em 0em 0.5em;
+  font-size:1.1em;  
+  color:white;
+}
+#dropdown select{
+  font-size:0.9em;
+  color:black;
+}
+#calWrap{
+  clear:both;
+  background-color:#004e99;
+  margin:0;
+}
+#calendar{
+  color:black;
+  background-color:rgba(255, 255, 255, 0.93);
+  padding-top:1em;
+}
+#bottomWrapper{
+  clear:both;
+}
+footer{
+  background-color:#004e99;
+  width:100%; 
+  clear:both;
+  text-align:center;
+  font-size:1.4em;
+  color:white;
+}

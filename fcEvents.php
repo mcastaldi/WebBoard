@@ -11,13 +11,7 @@
 		$userInfo['lastName'] = $_SESSION["lastName"];
 		$userInfo['isAdmin'] = $_SESSION['isAdmin'];
 		$userId = $userInfo['userId'];
-		$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];
 	} elseif (isset($_SESSION['orgId'])) {
-		$orgInfo['id'] = $_SESSION['orgId'];
-		$orgInfo['name'] = $_SESSION['orgName'];
-		$orgInfo['desc'] = $_SESSION['orgDesc'];
-		$orgInfo['website'] = $_SESSION['orgWebsite'];
-		$message = $orgInfo['name'];
 		$userInfo['userId'] = 0;
 	} else {
 		$userInfo['userId'] = 0;
@@ -59,15 +53,17 @@
 			$jsonArray=array();
 			while($row=$evtResult->fetch_assoc())
 			{
-				$evt_orgId = $row['org_id'];
-				$evt_orgName = $evt_orgId>0 ? $orgArray[$evt_orgId-1]['org_name'] : "User Created";
-				$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
-				$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
-				$duration = $start . " to " . $end;
-				$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
-					"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
-					"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
-			$jsonArray[]=$subArray;
+				if($row['evt_visible']==1){
+					$evt_orgId = $row['org_id'];
+					$evt_orgName = $evt_orgId>0 ? $orgArray[$evt_orgId-1]['org_name'] : "User Created";
+					$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
+					$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
+					$duration = $start . " to " . $end;
+					$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
+						"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
+						"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
+					$jsonArray[]=$subArray;
+				}
 			}
 			echo json_encode($jsonArray);
 		}
@@ -116,15 +112,17 @@
 					while($row=$evtResult->fetch_assoc())
 					{
 						if(in_array($row['eventId'],$userArray)){
-							$evt_orgId = $row['org_id'];
-							$evt_orgName = $orgArray[$evt_orgId-1]['org_name'];
-							$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
-							$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
-							$duration = $start . " to " . $end;
-							$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
-								"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
-								"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
-							$jsonArray[]=$subArray;
+							if($row['evt_visible']==1){
+								$evt_orgId = $row['org_id'];
+								$evt_orgName = $orgArray[$evt_orgId-1]['org_name'];
+								$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
+								$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
+								$duration = $start . " to " . $end;
+								$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
+									"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
+									"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
+								$jsonArray[]=$subArray;
+							}
 						}
 						if($row['org_id'] == -1 * $userInfo['userId']){
 							$evt_orgId = $row['org_id'];
@@ -182,15 +180,17 @@
 					while($row=$evtResult->fetch_assoc())
 					{
 						if(in_array($row['org_id'],$userArray)){
-							$evt_orgId = $row['org_id'];
-							$evt_orgName = $orgArray[$evt_orgId-1]['org_name'];
-							$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
-							$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
-							$duration = $start . " to " . $end;
-							$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
-								"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
-								"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
-							$jsonArray[]=$subArray;
+							if($row['evt_visible']==1){
+								$evt_orgId = $row['org_id'];
+								$evt_orgName = $orgArray[$evt_orgId-1]['org_name'];
+								$start=$row['evt_start_date'] . "T" . $row['evt_start_time'];
+								$end=$row['evt_end_date'] . "T" . $row['evt_end_time'];
+								$duration = $start . " to " . $end;
+								$subArray=array("id"=>$row['eventId'], "org_id" => $row['org_id'], "org_name" => $evt_orgName, "title" => $row['evt_name'], 
+									"desc"=>$row['evt_desc'], "room"=>$row['evt_room'],"start" => $start, "end" => $end, "link" => $row['evt_url'],
+									"date"=>$row['evt_start_date'], "start_time" =>$row['evt_start_time'], "end_time" =>$row['evt_end_time']);
+								$jsonArray[]=$subArray;
+							}
 						}
 					}
 					echo json_encode($jsonArray);

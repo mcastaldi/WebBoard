@@ -72,7 +72,7 @@
 				$desc = cleanInput($_POST['evtDesc'],$conn);
 				$sql = "INSERT INTO LTUEvents (org_id,is_private, evt_name, evt_room, evt_category,evt_start_date,evt_end_date,evt_start_time,evt_end_time,evt_desc,evt_url,evt_visible)
 					VALUES ({$_POST["evtOrgId"]},{$_POST["evtPrivate"]}, '{$name}', '{$room}', '{$_POST["evtCategory"]}',
-					'{$_POST["evtStartDate"]}','{$_POST["evtEndDate"]}', '{$_POST["evtStartTime"]}', '{$_POST["evtEndTime"]}', '{$desc}','{$url}',1)";
+					'{$_POST["evtStartDate"]}','{$_POST["evtEndDate"]}', '{$_POST["evtStartTime"]}', '{$_POST["evtEndTime"]}', '{$desc}','{$url}',0)";
 			
 				if ($conn->query($sql) === TRUE) {
 					$message = "Event Created Successfully";
@@ -340,17 +340,14 @@
 			<!-- Date row -->
 			
 			<div class="form-group row">
-				<div class="input-group date">
 					<label for="evtStartDate" class="col-sm-1 form-control-label" align="right">Start Date:</label>
-					<input required type="text" class="form-control" id="evtStartDate" name="evtStartDate" value="2-16-2012">
-					<div class="input-group-addon">
-						<span class="glyphicon glyphicon-th"></span>
-					</div>
+			<div class="col-sm-2">
+					<input required type="date" class="form-control" id="evtStartDate" name="evtStartDate" />
 				</div>
 				
 				<label for="evtEndDate" class="col-sm-1 form-control-label" align="right">End Date:</label>
 				<div class="col-sm-2">
-					<input required type="text" class="form-control" id="evtEndDate" name="evtEndDate" />
+					<input required type="date" class="form-control" id="evtEndDate" name="evtEndDate" />
 				</div>
 			</div>
 			<?php if($endDateEarly): ?>
@@ -371,7 +368,7 @@
 			</div>
 			<?php if($endTimeEarly): ?>
 			<div class="form-group row">
-				<span class="col-sm-5 error" align="right">End time must be after time date</span>
+				<span class="col-sm-5 error" align="right">End time must be after start time</span>
 			</div>
 			<?php endif; ?>
 			<!-- Description row -->
@@ -397,7 +394,7 @@
 		<?php endif ?>
 
 		<footer>
-			Created By: Matthew Castaldini, Hanan Jalnko, Kathleen Napier, Ian Tammis
+			Created By Matthew Castaldini
 		</footer>
 	</body>
 </html>

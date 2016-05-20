@@ -205,7 +205,7 @@
           }
           else
           {
-              var decision=confirm("Are you sure you want to accpet request(s)?");
+              var decision=confirm("Are you sure you want to accept request(s)?");
               if(!decision)
               {
 	          return;

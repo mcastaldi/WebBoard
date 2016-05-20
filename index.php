@@ -255,7 +255,6 @@
 		$orgInfo['name'] = $_SESSION['orgName'];
 		$orgInfo['desc'] = $_SESSION['orgDesc'];
 		$orgInfo['website'] = $_SESSION['orgWebsite'];
-		$orgInfo['orgAccepted'] = $_SESSION['isAccepted'];
 		$loggedInAsOrg = true;
 		$message = $orgInfo['name'];
 	} else {

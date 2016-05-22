@@ -111,6 +111,13 @@
 					<?php endif; ?>
 				<?php endif; ?>
 			<?php endif; ?>
+			
+			$('#permanentBox').on('change', 
+				function(){
+					$('#dateRow').toggle();
+					$('#announceStart').val("2016-05-22");
+					$('#announceEnd').val("2100-01-01");
+				});
 			});
   </script>
   <?php if($loggedInAsAdmin):?>
@@ -121,7 +128,7 @@
   <?php require 'requiredHeader.php';?>
   <div id="mainWrap">
   <?php if($loggedInAsAdmin):?>
-    <div id="title">Administrator</div>
+    <div id="title">Administration</div>
     <div id="acceptanceResponse"></div>
     <div id="type">Current Requests</div>
     <div id="requests">
@@ -194,7 +201,25 @@
           <div role="tabpanel" class="tab-pane active" id="add"><br />
             <form action="announcements.php" method="POST" role="form">
               <div class="form-group">
-                <textarea class="form-control" rows="6" id="addAnn" name="addAnn">Enter new announcement...</textarea>
+                <div class="form-group row">
+					<div class="col-sm-12">
+						<textarea required class="form-control" rows="6" id="addAnn" name="addAnn">Enter new announcement...</textarea>
+					</div>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" name="permanentBox" id="permanentBox" />Make Permanent</label>
+						
+				</div>
+				<div class="form-group row" id="dateRow">
+					<label for="announceStart" class="col-sm-1 form-control-label" align="right">Start Date:</label>
+					<div class="col-sm-4">
+						<input required type="date" class="form-control" id="announceStart" name="announceStart" />
+					</div>
+					<label for="announceEnd" class="col-sm-1 form-control-label" align="right">End Date:</label>
+					<div class="col-sm-4">
+						<input required type="date" class="form-control" id="announceEnd" name="announceEnd" min ="0" />
+					</div>
+				</div>
               </div>
               <button type="submit" class="btn btn-default" name="source" value="admin.php">Add</button>
             </form>
@@ -235,7 +260,7 @@
 <?php endif;?>
   <div id="bottomWrapper">
     <footer>
-      Created By: Matthew Castaldini, Hanan Jalnko, Kathleen Napier, Ian Timmis
+      Created By Matthew Castaldini
     </footer> 
   </div>
 </body>

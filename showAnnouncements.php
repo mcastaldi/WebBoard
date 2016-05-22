@@ -12,7 +12,7 @@
     {
         die("Connection failed:" . $con->connect_error);
     }
-    $sql="SELECT * FROM admin_announcements";
+    $sql="SELECT * FROM admin_announcements WHERE start_date <= cast(now() as date) AND end_date >= cast(now() as date) ORDER BY start_date AND end_date";
     $result=$con->query($sql);
     if($result->num_rows==0)
     {

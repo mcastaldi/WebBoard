@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="icon" href="favicon.ico"/>
-</head>
-<body>
 <!--Edit existing announcement -->
 <?php
     $editAnnouncement=$_POST['editAnn'];
@@ -32,5 +26,3 @@
     $con->close();
     header("Location: admin.php");
 ?>
-</body>
-</html>

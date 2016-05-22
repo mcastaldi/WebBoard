@@ -608,7 +608,7 @@
 	</div>		
   <div id="bottomWrapper">
     <footer>
-      Created By: Matthew Castaldini, Hanan Jalnko, Kathleen Napier, Ian Timmis
+      Created By Matthew Castaldini
     </footer>
   </div>
 </body>

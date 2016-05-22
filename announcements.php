@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-<body>
+
 <!-- Add new announcement -->
 <?php
     $sourcePage = $_POST['source'];
     $newAnnouncement=$_POST['addAnn'];
+	$annStart = $_POST['announceStart'];
+	$annEnd = $_POST['announceEnd'];
     $servername="localhost";
     $username="root";
     $password="root";
@@ -15,17 +15,19 @@
     {
         die("Connection failed:" . $con->connect_error);
     }
-        $sql="INSERT INTO admin_announcements (announce_desc) VALUES ('" . $newAnnouncement . "')";
-        if ($con->query($sql) === TRUE)
+	else
+	{
+        $sql="INSERT INTO admin_announcements (announce_desc,start_date,end_date) VALUES ('{$newAnnouncement}','{$annStart}','{$annEnd}')";
+        if ($con->query($sql) === FALSE)
         {
-            echo "New record created successfully";
+            echo "Error: " . $sql . "<br>" . $con->error;
         } 
         else
         {
-	   echo "Error: " . $sql . "<br>" . $con->error;
-        }
+			//echo "New record created successfully";
+			
         $con->close();
         header("Location: {$sourcePage}");
+        }
+	}
 ?>
-</body>
-</html>

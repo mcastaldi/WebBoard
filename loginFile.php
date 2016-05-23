@@ -1,7 +1,7 @@
 <?php
 	$email = $password = $type = "";
 	$emailErr = $passwordErr = $loginMessage = "";
-	$loginAttempted = $loginSuccess = $evtCreation = $loggedInAsUser = $loggedInAsOrg = false;
+	$loginAttempted = $loginSuccess = $evtCreation = $loggedInAsUser = $loggedInAsOrg = $loggedInAsAdmin = false;
 	$servername = "localhost";
 	$dbusername = "root";
 	$dbpassword = "root";
@@ -144,4 +144,38 @@
 		}
 	
 	}
+	if (isset($_SESSION['userId'])){
+		
+		$userInfo['userId'] = $_SESSION['userId'];
+		$userInfo['firstName'] = $_SESSION["firstName"];
+		$userInfo['lastName'] = $_SESSION["lastName"];
+		$loggedInAsAdmin = $_SESSION['isAdmin'];
+		$userId = $userInfo['userId'];
+		$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];
+		$loggedInAsUser = true;
+
+		
+	} elseif (isset($_SESSION['orgId'])) {
+		$orgInfo['id'] = $_SESSION['orgId'];
+		$orgInfo['name'] = $_SESSION['orgName'];
+		$orgInfo['desc'] = $_SESSION['orgDesc'];
+		$orgInfo['website'] = $_SESSION['orgWebsite'];
+		$orgInfo['password'] = $_SESSION['orgPassword'];
+		$orgInfo['email'] = $_SESSION['orgEmail'];
+		$orgInfo['orgAccepted'] = $_SESSION['isAccepted'];
+		$loggedInAsOrg = true;
+		$message = $orgInfo['name'];
+		
+		
+	} else {
+		$message = "No One";
+	}	
+	function cleanInput($input,$conn){
+		$input = trim($input);
+		$input = stripslashes($input);
+		$input = htmlspecialchars($input);
+		$input = mysqli_real_escape_string($conn,$input);
+      	return $input;
+	}
+	$loggedIn = $loggedInAsOrg || $loggedInAsUser;
 ?>

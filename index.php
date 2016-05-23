@@ -86,23 +86,7 @@
 		}
 	}
 	
-	function cleanInput($input,$conn){
-		$input = trim($input);
-		$input = stripslashes($input);
-		$input = htmlspecialchars($input);
-		$input = mysqli_real_escape_string($conn,$input);
-      	return $input;
-	}
-	
-	//check session to see if logged in and user and get info if true
-	$loggedInAsUser = $loggedInAsOrg = $loggedInAsAdmin = false;
-	if (isset($_SESSION['userId'])){
-		$userInfo['userId'] = $_SESSION['userId'];
-		$userInfo['firstName'] = $_SESSION["firstName"];
-		$userInfo['lastName'] = $_SESSION["lastName"];
-		$loggedInAsAdmin = $_SESSION['isAdmin'];
-		$userId = $userInfo['userId'];
-		$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];
+	if($loggedInAsUser){
 		$userInfo['events'] = array();
 		$sql = "SELECT eventId FROM user_event_join WHERE userId = {$userInfo['userId']};";
 		$result=$conn->query($sql);
@@ -114,19 +98,7 @@
 				array_push($userInfo['events'],$row['eventId']);
 			}
 		}
-		$loggedInAsUser = true;
-	} elseif (isset($_SESSION['orgId'])) {
-		$orgInfo['id'] = $_SESSION['orgId'];
-		$orgInfo['name'] = $_SESSION['orgName'];
-		$orgInfo['desc'] = $_SESSION['orgDesc'];
-		$orgInfo['website'] = $_SESSION['orgWebsite'];
-		$loggedInAsOrg = true;
-		$message = $orgInfo['name'];
-	} else {
-		$message = "No One";
 	}
-	$loggedIn = $loggedInAsOrg || $loggedInAsUser;
-	
 	$conn->close();
 	
 	//Checking if mobile user

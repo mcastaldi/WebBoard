@@ -1,4 +1,4 @@
-<?
+<?php
 	$email = $password = $type = "";
 	$emailErr = $passwordErr = $loginMessage = "";
 	$loginAttempted = $loginSuccess = $evtCreation = $loggedInAsUser = $loggedInAsOrg = false;
@@ -41,6 +41,8 @@
 					$_SESSION["lastName"] = $userInfo['last_name'];
 					$_SESSION['isAdmin'] = $userInfo['is_admin'];
 					$_SESSION['userEmail'] = $userInfo['user_email'];
+					$_SESSION['userPassword'] = $userInfo['login_password'];
+					$_SESSION['receiveEmails'] = $userInfo['receive_emails'];
 					$loginMessage = "Login Successful";
 					$loggedInAsUser = true;
 				}
@@ -69,6 +71,8 @@
 					$_SESSION["orgDesc"] = $orgInfo['org_description'];
 					$_SESSION['orgWebsite'] = $orgInfo['org_website'];
 					$_SESSION['orgEmail'] = $orgInfo['org_email'];
+					$_SESSION['orgPassword'] = $orgInfo['login_password'];
+					$_SESSION['isAccepted'] = $orgInfo['org_accepted'];
 					$loginMessage = "Login Successful";
 					$loggedInAsOrg = true;
 				}
@@ -101,6 +105,8 @@
 				$_SESSION["orgDesc"] = $orgDesc;
 				$_SESSION['orgWebsite'] = $orgWebsite;
 				$_SESSION['orgEmail'] = $orgEmail;
+				$_SESSION['orgPassword'] = $orgPassword;
+				$_SESSION['isAccepted'] = 0;
 				$loggedInAsOrg = true;
 			}
 		}
@@ -111,8 +117,8 @@
 			$lastName = cleanInput($_POST['lastName'],$conn);
 			$stuPassword = cleanInput($_POST['stuCreatePassword'],$conn);
 			$stuEmail = cleanInput($_POST['stuEmail'],$conn);
-			$sql = "INSERT INTO user_account (first_name,last_name,login_password,is_admin,user_email)
-			values ('{$firstName}','{$lastName}','{$stuPassword}',0,'{$stuEmail}');";
+			$sql = "INSERT INTO user_account (first_name,last_name,login_password,is_admin,user_email,receive_emails)
+			values ('{$firstName}','{$lastName}','{$stuPassword}',0,'{$stuEmail}',1);";
 	
 			if ($conn->query($sql) === TRUE) {
 				//echo "New record created successfully";
@@ -131,40 +137,11 @@
 				$_SESSION["lastName"] = $lastName;
 				$_SESSION['isAdmin'] = 0;
 				$_SESSION['userEmail'] = $email;
+				$_SESSION['userPassword'] = $stuPassword;
+				$_SESSION['receiveEmails'] = 1;
 				$loggedInAsUser = true;
 			}
 		}
+	
 	}
-	else
-	{
-		//check session to see if logged in and user and get info if true
-		if (isset($_SESSION['userId'])){
-			$userInfo['userId'] = $_SESSION['userId'];
-			$userInfo['firstName'] = $_SESSION["firstName"];
-			$userInfo['lastName'] = $_SESSION["lastName"];
-			$userInfo['isAdmin'] = $_SESSION['isAdmin'];
-			$userId = $userInfo['userId'];
-			$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];
-			$loggedInAsUser = true;
-		} elseif (isset($_SESSION['orgId'])) {
-			$orgInfo['id'] = $_SESSION['orgId'];
-			$orgInfo['name'] = $_SESSION['orgName'];
-			$orgInfo['desc'] = $_SESSION['orgDesc'];
-			$orgInfo['website'] = $_SESSION['orgWebsite'];
-			$loggedInAsOrg = true;
-			$message = $orgInfo['name'];
-		} else {
-			$message = "No One";
-		}
-		
-	}
-	$loggedIn = $loggedInAsOrg || $loggedInAsUser;
-	function cleanInput($input,$conn){
-		$input = trim($input);
-		$input = stripslashes($input);
-		$input = htmlspecialchars($input);
-		$input = mysqli_real_escape_string($conn,$input);
-      	return $input;
-	}
-	$conn->close();
 ?>

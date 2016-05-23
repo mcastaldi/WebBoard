@@ -1,5 +1,5 @@
-<!-- Shows current announcements -->
 <?php
+//Shows current announcements
     function showAnnounce()
     {
     $servername="localhost";

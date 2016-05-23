@@ -1,7 +1,6 @@
-
-<!-- Add new announcement -->
 <?php
-    $sourcePage = $_POST['source'];
+	//Add new announcement
+	$sourcePage = $_POST['source'];
     $newAnnouncement=$_POST['addAnn'];
 	$annStart = $_POST['announceStart'];
 	$annEnd = $_POST['announceEnd'];

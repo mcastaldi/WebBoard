@@ -384,7 +384,7 @@
 		<div class="form-group row pageMessage">
 			<div class="col-sm-5" align="center">
 				You're logged in as: <?php echo $message?>,<br />Below you can change your organization's information.<br/>
-				<?php echo $orgInfo['orgAccepted'] ? "Your organization have been approved by administration" : "Your organization is still waiting approval.";?>
+				<?php echo $orgInfo['orgAccepted'] ? "Your organization have been approved by administration" : "Your organization is still awaiting approval.";?>
 			</div>
 		</div>
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method ="post" role="form" id="emailForm">

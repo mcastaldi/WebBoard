@@ -2,23 +2,9 @@
 	session_start();//session control
 	$thisPage = "index.php";//page for logout redirection
 	
-	//Establish connection with the database
-	$servername = "localhost";
-	$dbusername = "root";
-	$dbpassword = "root";
-	$dbname = "LTUBillboard";
-	// Create connection
-	$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-	
-	//variables used in validation
-	$email = $password = $type = "";
-	$emailErr = $passwordErr = $loginMessage = "";
-	$loginAttempted = $loginSuccess = $loggedInAsUser = $loggedInAsOrg = $loggedInAsAdmin = false;
 	//data validation for logging in
+	
+	include 'loginFile.php';
 	$endDateEarly = $endTimeEarly = false;
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
@@ -34,130 +20,6 @@
 		*/
 		if(!empty($_POST['type'])){$type = $_POST['type'];}
 		
-		//If cases for checking the type of request
-		if(strcmp($type,'stu')==0)//logging in as student
-		{
-			$loginAttempted = true;//user tried to log in
-			if(empty($_POST['studentEmail']))//email is required
-				$emailErr = "Email is Required";
-			elseif(empty($_POST['studentPassword']))//password is required
-				$passwordErr = "Password is Required";
-			else//if information is filled out
-			{
-				//clean inputs using function
-				$email = cleanInput($_POST['studentEmail'],$conn);
-				$password = cleanInput($_POST['studentPassword'],$conn);
-				
-				//query database to get information, then store it in the session
-				$sql = "SELECT * FROM user_account WHERE user_email='{$email}' AND login_password='{$password}';";
-				$result = $conn->query($sql);
-				if($result->num_rows==0){$loginMessage="Login Failed";}//not found in database
-				else
-				{
-					$loginSuccess = true;
-					$userInfo = $result->fetch_assoc();
-					$_SESSION['userId'] = $userInfo['userId'];
-					$_SESSION["firstName"] = $userInfo['first_name'];
-					$_SESSION["lastName"] = $userInfo['last_name'];
-					$_SESSION['isAdmin'] = $userInfo['is_admin'];
-					$_SESSION['userEmail'] = $userInfo['user_email'];
-					$_SESSION['userPassword'] = $userInfo['login_password'];
-					$_SESSION['receiveEmails'] = $userInfo['receive_emails'];
-					$loginMessage = "Login Successful";
-				}
-			}
-		}
-		if(strcmp($type,'org')==0)//logging in as an organization
-		{
-			$loginAttempted =true;
-			if(empty($_POST['orgEmail']))
-				$emailErr = "Email is Required";
-			elseif(empty($_POST['orgPassword']))
-				$passwordErr = "Password is Required";
-			else
-			{
-				$email = cleanInput($_POST['orgEmail'],$conn);
-				$password = cleanInput($_POST['orgPassword'],$conn);
-				$sql = "SELECT * FROM ltuorganization WHERE org_email='{$email}' AND login_password='{$password}';";
-				$result = $conn->query($sql);
-				if($result->num_rows==0){$loginMessage="Login Failed";}
-				else
-				{
-					$loginSuccess = true;
-					$orgInfo=$result->fetch_assoc();
-					$_SESSION['orgId'] = $orgInfo['orgId'];
-					$_SESSION["orgName"] = $orgInfo['org_name'];
-					$_SESSION["orgDesc"] = $orgInfo['org_description'];
-					$_SESSION['orgWebsite'] = $orgInfo['org_website'];
-					$_SESSION['orgEmail'] = $orgInfo['org_email'];
-					$_SESSION['orgPassword'] = $orgInfo['login_password'];
-					$_SESSION['isAccepted'] = $orgInfo['org_accepted'];
-					$loginMessage = "Login Successful";
-				}
-			}
-		}
-		if(strcmp($type,'orgCreate')==0)//Creating organiaztion
-		{
-			$loginAttempted = true;
-			$orgName = cleanInput($_POST['orgName'],$conn);
-			$orgDesc = cleanInput($_POST['orgDesc'],$conn);
-			$orgUrl = cleanInput($_POST['orgUrl'],$conn);
-			$orgPassword = cleanInput($_POST['orgCreatePassword'],$conn);
-			$orgEmail = cleanInput($_POST['orgEmail'],$conn);
-			$sql = "INSERT INTO ltuorganization (org_name,org_description,org_website,login_password,org_email,org_accepted)
-			values ('{$orgName}','{$orgDesc}','{$orgUrl}','{$orgPassword}','{$orgEmail}',0);";
-			$errorMessage = "";
-			if ($conn->query($sql) === TRUE) {//if successfully created account, log them in
-				$sql = "SELECT orgId FROM ltuorganization WHERE org_email='{$orgEmail}' AND login_password='{$orgPassword}';";
-				$result = $conn->query($sql);
-				if($result->num_rows==0){$loginMessage="Login Failed";}
-				else
-				{
-					$userInfo = $result->fetch_assoc();
-					$_SESSION['orgId'] = $userInfo['orgId'];
-					$_SESSION["orgName"] = $orgName;
-					$_SESSION["orgDesc"] = $orgDesc;
-					$_SESSION['orgWebsite'] = $orgWebsite;
-					$_SESSION['orgEmail'] = $orgEmail;
-					$_SESSION['orgPassword'] = $orgPassword;
-					$_SESSION['isAccepted'] = 0;
-				}
-			} //success
-			else 
-			{//for error checking while developing
-				//echo "Error: " . $sql . "<br>" . $conn->error;
-			}//fail
-		}
-		if(strcmp($type,'stuCreate')==0)//Creating organiaztion
-		{
-			$loginAttempted = true;
-			$firstName = cleanInput($_POST['firstName'],$conn);
-			$lastName = cleanInput($_POST['lastName'],$conn);
-			$stuPassword = cleanInput($_POST['stuCreatePassword'],$conn);
-			$stuEmail = cleanInput($_POST['stuEmail'],$conn);
-			$sql = "INSERT INTO user_account (first_name,last_name,login_password,is_admin,user_email,receive_emails)
-			values ('{$firstName}','{$lastName}','{$stuPassword}',0,'{$stuEmail}',1);";
-	
-			if ($conn->query($sql) === TRUE) {
-				$sql = "SELECT userId FROM user_account WHERE user_email='{$email}' AND login_password='{$password}';";
-				$result = $conn->query($sql);
-				if($result->num_rows==0){$loginMessage="Login Failed";}
-				else
-				{
-					$userInfo = $result->fetch_assoc();
-					$_SESSION['userId'] = $userInfo['userId'];
-					$_SESSION["firstName"] = $firstName;
-					$_SESSION["lastName"] = $lastName;
-					$_SESSION['isAdmin'] = 0;
-					$_SESSION['userEmail'] = $email;
-					$_SESSION['userPassword'] = $stuPassword;
-					$_SESSION['receiveEmails'] = 1;
-				}
-			} else 
-			{
-				//echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-		}
 		if(strcmp($type,'changeStuEmail')==0)
 		{
 			$newEmail = cleanInput($_POST['changeStudentEmail'],$conn);
@@ -204,38 +66,12 @@
 		}
 	}
 	
-	//check session to see if logged in and user and get info if true
-	require 'getOrgsScript.php';//function for getting organizations the user follows
-	if (isset($_SESSION['userId'])){//get info from session and store on page
-		$userInfo['userId'] = $_SESSION['userId'];
-		$userInfo['firstName'] = $_SESSION["firstName"];
-		$userInfo['lastName'] = $_SESSION["lastName"];
-		$loggedInAsAdmin = $_SESSION['isAdmin'];
-		$userInfo['userEmail'] = $_SESSION['userEmail'];
-		$userInfo['userPassword'] = $_SESSION['userPassword'];
-		$userInfo['receiveEmails'] = $_SESSION['receiveEmails'];
-		$userId = $userInfo['userId'];
-		$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];
-		$loggedInAsUser = true;
-		
+	require 'getOrgsScript.php';
+	if($loggedInAsUser){
 		$followedOrgs = getOrgs($userInfo['userId'],$conn);//get followed org information
 		$numFollowedOrgs = 0;
 		if(!empty($followedOrgs))//get how many orgs the user follows
 			$numFollowedOrgs = count($followedOrgs);
-	} elseif (isset($_SESSION['orgId'])) {//orgs can view this page
-		$loggedInAsOrg = true;
-		$message = $orgInfo['name'];
-	} else {
-		$message = "No One";
-	}
-	$loggedIn = $loggedInAsOrg || $loggedInAsUser;
-	
-	function cleanInput($input,$conn){//function for cleaning input
-		$input = trim($input);
-		$input = stripslashes($input);
-		$input = htmlspecialchars($input);
-		$input = mysqli_real_escape_string($conn,$input);
-      	return $input;
 	}
 	$conn->close();
 ?>
@@ -316,6 +152,10 @@
 						<?php endif;?>
 					<?php endif;?>
 				<?php endif?>
+				
+				$('#loginTabs a:last').hide();
+				$('#loginTabs a[href="#loginAsOrg"]').hide();
+				$('#createAccountLink').hide();
 			});//end of doc.ready
 		</script>
 		<style>

@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <?php
+<?php
     $action=intval($_POST["a"]);
     $showType=intval($_POST["type"]);
     $checkedIds=preg_split("/,/", ($_POST["data"]));
@@ -69,6 +66,4 @@
     }
     echo "";
     $con->close(); 
-  ?>
-</body>
-</html>
+ ?>

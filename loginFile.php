@@ -145,10 +145,12 @@
 	
 	}
 	if (isset($_SESSION['userId'])){
-		
+		$userInfo['userEmail'] = $_SESSION['userEmail'];
 		$userInfo['userId'] = $_SESSION['userId'];
 		$userInfo['firstName'] = $_SESSION["firstName"];
 		$userInfo['lastName'] = $_SESSION["lastName"];
+		$userInfo['userPassword'] = $_SESSION['userPassword'];
+		$userInfo['receiveEmails'] = $_SESSION['receiveEmails'];
 		$loggedInAsAdmin = $_SESSION['isAdmin'];
 		$userId = $userInfo['userId'];
 		$message  = $userInfo['firstName'] . " " . $userInfo['lastName'];

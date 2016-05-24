@@ -1,6 +1,6 @@
-<!-- Shows the next 5 scheduled events -->
 <?php
-    function upcomingEvents()
+    //Shows the next 5 scheduled events
+	function upcomingEvents()
     {
     $servername="localhost";
     $username="root";

@@ -1,5 +1,5 @@
-<!--Edit existing announcement -->
 <?php
+	//Edit existing announcement
     $editAnnouncement=$_POST['editAnn'];
     $anId=intval($_POST['annId']);
     $servername="localhost";

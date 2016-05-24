@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<!--Find maximum number of request pages -->
 <?php
+	//Find maximum number of request pages
     $servername="localhost";
     $username="root";
     $password="root";

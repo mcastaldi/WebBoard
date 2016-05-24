@@ -1,7 +1,7 @@
-<!-- Both functions build dynamic content to be displayed inside their respective modal -->
 <?php   
-   function modalTable()
-   {
+   //Both functions build dynamic content to be displayed inside their respective modal
+	function modalTable()
+	{
         $servername="localhost";
         $username="root";
         $password="root";

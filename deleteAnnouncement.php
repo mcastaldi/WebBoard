@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="icon" href="favicon.ico"/>
-</head>
-</head>
-<body>
-<!-- Delete selected announcement -->
 <?php
-    $anId=intval($_POST['annId']);
+    //Delete selected announcement
+	$anId=intval($_POST['annId']);
     $servername="localhost";
     $username="root";
     $password="root";
@@ -31,5 +24,3 @@
     $con->close();
     header("Location: admin.php");
 ?>
-</body>
-</html>

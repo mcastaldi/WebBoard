@@ -83,19 +83,14 @@
 		<link href="stylesheet.css" rel="stylesheet" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link href="bootstrap.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="jquery-2.2.2.min.js"></script>
-		<script type="text/javascript" src="bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+		<script src="jquery-2.2.2.min.js"></script>
+		<script src="bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+		<script src="webboardFunctions.js"></script>
 
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function() {//doc.ready
-				//used for the account creation tab, determining what type to show
-				$("#orgAct").hide();
-				$("input[name=actType]").on( "change", function() {
-					var target = $(this).val();
-					$(".chooseActType").hide();
-					$("#"+target).show();
-				});
+				hideCreateAccount("orgstoo");
 				
 				//validate the change password form by ensuring passwords are equal
 				$("#changePasswordForm").validate({
@@ -108,29 +103,6 @@
 				//submit the checkbox form on change
 				$("#receiveEmails").on( "change", function(){
 					$("#receiveEmailsForm").submit();
-				});
-				
-			
-				//validation for account creation and logging in
-				$("#createStuAct").validate({
-					"rules" : {
-						"confirmStuPassword" : {
-							"equalTo" : "#stuCreatePassword"}
-					}
-				});
-				$("#createOrgAct").validate({
-					rules : {
-						confirmOrgPassword : {
-							equalTo : "#orgCreatePassword"}
-					}
-				});
-				$("#studentForm").validate({});
-				$("#orgForm").validate({});
-				
-				//directly open the create account tab
-				$("#createAccountLink").on("click", function(){
-					$('#loginModal').modal('show');
-					$('#loginTabs a:last').tab('show');
 				});
 				
 				//open the login modal and show error if login fails
@@ -152,10 +124,6 @@
 						<?php endif;?>
 					<?php endif;?>
 				<?php endif?>
-				
-				$('#loginTabs a:last').hide();
-				$('#loginTabs a[href="#loginAsOrg"]').hide();
-				$('#createAccountLink').hide();
 			});//end of doc.ready
 		</script>
 		<style>

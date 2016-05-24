@@ -83,24 +83,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="icon" href="favicon.ico"/>
-  <link href="adminStylesheet.css" rel="stylesheet" type="text/css" />
-  <link href="stylesheet.css" rel="stylesheet" type="text/css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link href="bootstrap.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+	<link rel="icon" href="favicon.ico"/>
+	<link href="adminStylesheet.css" rel="stylesheet"/>
+	<link href="stylesheet.css" rel="stylesheet"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link href="bootstrap.css" rel="stylesheet"/>
+	<script src="jquery-2.2.2.min.js"></script>
 	<script src='jquery.min.js'></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script src='moment.min.js'></script>
 	<script src='fullcalendar.js'></script>
-	<script type="text/javascript" src="bootstrap.min.js"></script>
-        <link rel="icon" href="favicon.ico"/>
+	<script src="bootstrap.min.js"></script>
+	<script src="webboardFunctions.js"></script>
+    <link rel="icon" href="favicon.ico"/>
 
   <script>
 		$(document).ready(function() {
-			$('#loginTabs a:last').hide();
-			$('#loginTabs a[href="#loginAsOrg"]').hide();
-			$('#createAccountLink').hide();
+			hideCreateAccount("orgstoo");
 			<?php if($loginAttempted):?>
 				<?php if(strcmp($type,'stu')==0):?>
 					<?php if(!$loginSuccess):?>

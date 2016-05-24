@@ -116,20 +116,21 @@
 <html>
 <head>
 	<title>LTU Billboard</title>
-	<link href="fcStylesheet.css" rel="stylesheet" type="text/css" />
+	<link href="fcStylesheet.css" rel="stylesheet" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
-	<link href="bootstrap.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="jquery-2.2.2.min.js"></script>
+	<link href="bootstrap.css" rel="stylesheet" />
+	<script src="jquery-2.2.2.min.js"></script>
 	<link rel='stylesheet' href='fullcalendar.css' />
 	<script src='jquery.min.js'></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 	<script src='moment.min.js'></script>
 	<script src='fullcalendar.js'></script>
-	<script type="text/javascript" src="bootstrap.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+	<script src="webboardFunctions.js"></script>
 	<link rel="icon" href="favicon.ico"/>
 
-	<script type="text/javascript">
+	<script>
 			var eventsAddedToCal = [ 
 		<?php if($loggedInAsUser): ?>
 				<?php foreach($userInfo['events'] as $anEventId)
@@ -139,7 +140,7 @@
 			<?php endif;?>
 			];
 		$(document).ready(function() {
-			
+			headerFunctions();
 			
 			$('#calendar').fullCalendar({
 				eventClick:  function(event, jsEvent, view) {
@@ -190,35 +191,6 @@
 				]
 			})//end of full calendar
 			
-			//used for create account panel radio buttons
-			$("#orgAct").hide();
-			$("input[name=actType]").on( "change", function() {
-				var target = $(this).val();
-				$(".chooseActType").hide();
-				$("#"+target).show();
-			});
-			
-			//validation for student account creation
-			$("#createStuAct").validate({
-				"rules" : {
-					"confirmStuPassword" : {
-						"equalTo" : "#stuCreatePassword"}
-				}
-			});
-			$("#createOrgAct").validate({
-				rules : {
-					confirmOrgPassword : {
-						equalTo : "#orgCreatePassword"}
-				}
-			});
-			$("#studentForm").validate({});
-			$("#orgForm").validate({});
-			
-			
-			$("#createAccountLink").on("click", function(){
-				$('#loginModal').modal('show');
-				$('#loginTabs a:last').tab('show');
-			});
 			<?php if($loginAttempted):?>
 				<?php if(strcmp($type,'stu')==0):?>
 					<?php if(!$loginSuccess):?>

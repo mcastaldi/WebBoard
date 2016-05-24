@@ -137,6 +137,7 @@
 		<script type="text/javascript" src="jquery-2.2.2.min.js"></script>
 		<script type="text/javascript" src="bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+		<script src="webboardFunctions.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				
@@ -158,33 +159,7 @@
 							"equalTo" : "#changeOrgPassword"}
 					}
 				});
-				
-				$("#receiveEmails").on( "change", function(){
-					$("#receiveEmailsForm").submit();
-				});
-				
-				//validation for account creation and logging in
-				$("#createStuAct").validate({
-					"rules" : {
-						"confirmStuPassword" : {
-							"equalTo" : "#stuCreatePassword"}
-					}
-				});
-				$("#createOrgAct").validate({
-					rules : {
-						confirmOrgPassword : {
-							equalTo : "#orgCreatePassword"}
-					}
-				});
-				$("#studentForm").validate({});
-				$("#orgForm").validate({});
-				
-				//directly open the create account tab
-				$("#createAccountLink").on("click", function(){
-					$('#loginModal').modal('show');
-					$('#loginTabs a:last').tab('show');
-				});
-				
+				headerFunctions();
 				//open the login modal and show error if login fails
 				<?php if($loginAttempted):?>
 					<?php if(strcmp($type,'stu')==0):?>

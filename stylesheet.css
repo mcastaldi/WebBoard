@@ -207,3 +207,7 @@ footer{
   font-size:1.4em;
   color:white;
 }
+#createAccountLink{
+	cursor: pointer;
+	color:white;
+}

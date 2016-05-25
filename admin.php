@@ -114,8 +114,15 @@
 			$('#permanentBox').on('change', 
 				function(){
 					$('#dateRow').toggle();
-					$('#announceStart').val("2016-05-22");
-					$('#announceEnd').val("2100-01-01");
+					if($(this).is(":checked")){
+						$('#announceStart').val("2016-05-22");
+						$('#announceEnd').val("2100-01-01");
+					}
+					else{
+						$('#announceStart').val('');
+						$('#announceEnd').val('');
+					}
+					
 				});
 			});
   </script>

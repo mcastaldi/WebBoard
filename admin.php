@@ -122,7 +122,18 @@
 						$('#announceStart').val('');
 						$('#announceEnd').val('');
 					}
-					
+				});
+				
+			$('#addAnn').on('focus',
+				function(){
+					if($('#addAnn').val()=="Enter new announcement...")
+						$('#addAnn').val('');
+				});
+			
+			$('#addAnn').on('blur',
+				function(){
+					if($('#addAnn').val()=='')
+						$('#addAnn').val('Enter new announcement...');
 				});
 			});
   </script>

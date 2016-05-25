@@ -40,4 +40,5 @@ One big thing that was pointed out during presentation was that it wasn't so muc
 <li>More form processing at all levels, like disallowed words on events and organizations. Also have it work on non-Chrome broswers.</li>
 <li>Encrpyted passwords in database.</li>
 <li>Event and organization approval functionality</li> 
+<li>I think the admin functions can be made more efficient.</li>
 </ol>

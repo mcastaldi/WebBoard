@@ -56,5 +56,8 @@ CREATE TABLE user_event_join(
 CREATE TABLE admin_announcements(
 	announceId INT(6) NOT NULL AUTO_INCREMENT,
 	announce_desc TEXT NOT NULL,
+	end_date DATE NOT NULL,
+	start_date DATE NOT NULL,
+	ann_type VARCHAR(5) NOT NULL,
         primary key (announceId)
 );

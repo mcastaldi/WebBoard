@@ -97,7 +97,7 @@
 	<script src="webboardFunctions.js"></script>
     <link rel="icon" href="favicon.ico"/>
 
-  <script>
+	<script>
 		$(document).ready(function() {
 			hideCreateAccount("orgstoo");
 			<?php if($loginAttempted):?>
@@ -122,21 +122,42 @@
 						$('#announceStart').val('');
 						$('#announceEnd').val('');
 					}
-				});
+			});
 				
 			$('#addAnn').on('focus',
 				function(){
 					if($('#addAnn').val()=="Enter new announcement...")
 						$('#addAnn').val('');
-				});
+			});
 			
 			$('#addAnn').on('blur',
 				function(){
 					if($('#addAnn').val()=='')
 						$('#addAnn').val('Enter new announcement...');
-				});
 			});
-  </script>
+				
+			$('#annForm').validate({});
+			$('#annUrl').hide();
+			$("[name='announceType']").on('change',
+				function(){
+					if($(this).val()=="text"){
+						$('#typeDesc').html("Text only annoucements just have the annoucement text display, with no interactivity.");
+						$('#announceUrl').rules("remove","required");
+						$('#annUrl').hide();
+					}
+					else if($(this).val()=="link"){
+						$('#typeDesc').html("When the announcement text is clicked on, the link supplied below will be opened.");
+						$('#announceUrl').rules("add","required");
+						$('#annUrl').show();
+					}
+					else if($(this).val()=="modal"){
+						$('#typeDesc').html("When the announcement text is clicked on, a modal popup with information provided below will be shown.");
+						$('#announceUrl').rules("remove","required");
+						$('#annUrl').hide();
+					}
+				});
+		});
+	</script>
   <?php if($loggedInAsAdmin):?>
   <script src='adminAjax.js'></script>
   <?php endif;?>
@@ -216,29 +237,56 @@
         <div class="tab-content">
           <!-- create new announcement -->
           <div role="tabpanel" class="tab-pane active" id="add"><br />
-            <form action="announcements.php" method="POST" role="form">
-              <div class="form-group">
-                <div class="form-group row">
-					<div class="col-sm-12">
-						<textarea required class="form-control" rows="6" id="addAnn" name="addAnn">Enter new announcement...</textarea>
+            <form action="announcements.php" method="POST" role="form" id="annForm">
+				<div class="form-group">
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<textarea required class="form-control" rows="6" id="addAnn" name="addAnn">Enter new announcement...</textarea>
+						</div>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" name="permanentBox" id="permanentBox" />Make Permanent</label>
+							
+					</div>
+					<div class="form-group row" id="dateRow">
+						<label for="announceStart" class="col-sm-1 form-control-label" align="right">Start Date:</label>
+						<div class="col-sm-4">
+							<input required type="date" class="form-control" id="announceStart" name="announceStart" />
+						</div>
+						<label for="announceEnd" class="col-sm-1 form-control-label" align="right">End Date:</label>
+						<div class="col-sm-4">
+							<input required type="date" class="form-control" id="announceEnd" name="announceEnd" min ="0" />
+						</div>
+					</div>
+					<div class="form-group row" id="typeRow">
+						<label class="col-sm-4">Announcement Type:</label>
+						<div class="col-sm-8">
+							<div class="radio-inline">
+								<label><input type="radio" name="announceType" value="text" checked />Text Only</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="announceType" value="link">Link</label>
+							</div>
+							<div class="radio-inline">
+								<label><input type="radio" name="announceType" value="modal">Modal Pop-up</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-12" id="typeDesc">
+							Text only annoucements just have the annoucement text display, with no interactivity.
+						</div>
+					</div>
+					<div class="form-group row">
+						<div id="annUrl">
+							<label for="announceUrl" class="col-sm-4 form-control-label" align="right">Announcement URL</label>
+							<div class="col-sm-5">
+								<input type="url" class="form-control" id="announceUrl" name="announceUrl" placeholder="http://example.com" />
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="checkbox">
-					<label><input type="checkbox" name="permanentBox" id="permanentBox" />Make Permanent</label>
-						
-				</div>
-				<div class="form-group row" id="dateRow">
-					<label for="announceStart" class="col-sm-1 form-control-label" align="right">Start Date:</label>
-					<div class="col-sm-4">
-						<input required type="date" class="form-control" id="announceStart" name="announceStart" />
-					</div>
-					<label for="announceEnd" class="col-sm-1 form-control-label" align="right">End Date:</label>
-					<div class="col-sm-4">
-						<input required type="date" class="form-control" id="announceEnd" name="announceEnd" min ="0" />
-					</div>
-				</div>
-              </div>
-              <button type="submit" class="btn btn-default" name="source" value="admin.php">Add</button>
+				<button type="submit" class="btn btn-default" name="source" value="admin.php">Add</button>
             </form>
           </div>
           <!-- edit/delete current announcements -->

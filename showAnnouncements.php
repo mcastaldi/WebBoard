@@ -21,8 +21,13 @@
     else
     {
         while($row=$result->fetch_assoc())
-        {
-            echo "<li>" . $row['announce_desc'] . "</li>";         
+        {	
+			if(strcmp($row['ann_type'],'text')==0){
+				echo "<li>" . $row['announce_desc'] . "</li>";
+				} 
+			else if(strcmp($row['ann_type'],'link')==0&&!empty($row['ann_url'])){
+				echo "<li><a href='" . $row['ann_url'] ."'>" . $row['announce_desc'] . "</a></li>";
+			}
         }
     }
     $con->close();

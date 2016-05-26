@@ -5,18 +5,22 @@
 			<span  class="col-sm-5" align="left"><a href="index.php" id="logo">WebBoard</a></span>
 			<?php if(!$loggedInAsAdmin && !$loggedInAsOrg) echo "<div class='col-sm-2'></div>"?>
 			<?php if(!$loggedIn): ?>
-			<div class="log-in col-sm-4" align="right">
-				<button class="button" id="loginButton" data-toggle="modal" data-target="#loginModal">Log In</button>&nbsp;&nbsp;&nbsp;&nbsp;
-				<br />
-				<a id="createAccountLink">or create an account</a>
+			<div class="col-sm-4">
+				<div class="log-in">
+					<button class="button" id="loginButton" data-toggle="modal" data-target="#loginModal">Log In</button>&nbsp;&nbsp;&nbsp;&nbsp;
+					<br />
+					<a id="createAccountLink">or create an account</a>
+				</div>
 			</div>
 			<?php else: ?>
-			<span class="log-in col-sm-4" align="left">
-				<form action="logout.php" method="post" role="form">
-					<div class="loggedInText" align="right">Logged in as:<br /> <?php echo ($loggedInAsOrg ? "<a href='organizations.php'>{$orgInfo['name']}</a>" : "<a href='accountSettings.php'>{$userInfo['firstName']}</a>");?></div>
-					<button class="button" id="logoutButton" type="submit" name="source" value="<?php echo $thisPage;?>">Log Out</button>
-				</form>	
-			</span>
+			<div class="col-sm-4">
+				<div class="log-in">
+					<form action="logout.php" method="post" role="form">
+						<div class="loggedInText" align="right">Logged in as:<br /> <?php echo ($loggedInAsOrg ? "<a href='organizations.php'>{$orgInfo['name']}</a>" : "<a href='accountSettings.php'>{$userInfo['firstName']}</a>");?></div>
+						<button class="button" id="logoutButton" type="submit" name="source" value="<?php echo $thisPage;?>">Log Out</button>
+					</form>
+				</div>
+			</div>
 			<?php endif ?>
 			<br />
 			<br />

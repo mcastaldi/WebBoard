@@ -190,7 +190,7 @@
 				  },
 				]
 			})//end of full calendar
-			
+		
 			<?php if($loginAttempted):?>
 				<?php if(strcmp($type,'stu')==0):?>
 					<?php if(!$loginSuccess):?>
@@ -230,13 +230,14 @@
 			
 			
 		});//end of doc.ready
-	</script>	
+	</script>
+	
 	</head>
 	<body>
 <?php require 'requiredHeader.php';?>
   <div id="theWrap">
     <div id="topWrap">
-      <div class="subheader" id="firstSubheader">
+      <div class="col-m-5 subheader" id="firstSubheader">
         <span class="subTitle">Announcements</span>
         <ul id="currAnnounce"><?php showAnnounce(); ?></ul>
       </div>
@@ -245,53 +246,55 @@
         <ul id="currEvents"><?php upcomingEvents(); ?></ul>
       </div>
     </div>
-    <div id="calendarWrapper">
-      <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="dropdown">
-        Event Filter:&nbsp;
-        <select id="selectId" name="filter">
-			<option value="non" <?php if($filterSet){if(strcmp($filter,'non')==0){echo "selected";}}?> >Show All</option>
-			<option value="arc" <?php if($filterSet){if(strcmp($filter,'arc')==0){echo "selected";}}?> >Architecture + Design</option>
-			<option value="mcs" <?php if($filterSet){if(strcmp($filter,'mcs')==0){echo "selected";}}?> >Arts + Science</option>
-			<option value="eng" <?php if($filterSet){if(strcmp($filter,'eng')==0){echo "selected";}}?> >Engineering</option>
-			<option value="stu" <?php if($filterSet){if(strcmp($filter,'stu')==0){echo "selected";}}?> >Student Interests</option>
-			<?php if($loggedInAsUser){
-					if($filterSet){
-						if(strcmp($filter,'add')==0)
-						{
-							echo "<option value='add' selected>Added to Calendar</option>";
-							echo "<option value='org'>My Organizations</option>";
-							echo "<option value='mine'>My Events</option>";
-						}
-						elseif(strcmp($filter,'org')==0)
-						{
-							echo "<option value='add'>Added to Calendar</option>";
-							echo "<option value='org' selected>My Organizations</option>";
-							echo "<option value='mine'>Private Events</option>";
-						}
-						elseif(strcmp($filter,'mine')==0)
-						{
-							echo "<option value='add'>Added to Calendar</option>";
-							echo "<option value='org'>My Organizations</option>";
-							echo "<option value='mine' selected>Private Events</option>";
+    <div id="calendarWrapper" class="row">
+      <div class="col-sm-4">
+		  <form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="dropdown">
+			Event Filter:&nbsp;
+			<select id="selectId" name="filter">
+				<option value="non" <?php if($filterSet){if(strcmp($filter,'non')==0){echo "selected";}}?> >Show All</option>
+				<option value="arc" <?php if($filterSet){if(strcmp($filter,'arc')==0){echo "selected";}}?> >Architecture + Design</option>
+				<option value="mcs" <?php if($filterSet){if(strcmp($filter,'mcs')==0){echo "selected";}}?> >Arts + Science</option>
+				<option value="eng" <?php if($filterSet){if(strcmp($filter,'eng')==0){echo "selected";}}?> >Engineering</option>
+				<option value="stu" <?php if($filterSet){if(strcmp($filter,'stu')==0){echo "selected";}}?> >Student Interests</option>
+				<?php if($loggedInAsUser){
+						if($filterSet){
+							if(strcmp($filter,'add')==0)
+							{
+								echo "<option value='add' selected>Added to Calendar</option>";
+								echo "<option value='org'>My Organizations</option>";
+								echo "<option value='mine'>My Events</option>";
+							}
+							elseif(strcmp($filter,'org')==0)
+							{
+								echo "<option value='add'>Added to Calendar</option>";
+								echo "<option value='org' selected>My Organizations</option>";
+								echo "<option value='mine'>Private Events</option>";
+							}
+							elseif(strcmp($filter,'mine')==0)
+							{
+								echo "<option value='add'>Added to Calendar</option>";
+								echo "<option value='org'>My Organizations</option>";
+								echo "<option value='mine' selected>Private Events</option>";
+							}
+							else
+							{ 
+								echo "<option value='add'>Added to Calendar</option>";
+								echo "<option value='org'>My Organizations</option>";
+								echo "<option value='mine'>Private Events</option>";
+							}
 						}
 						else
-						{ 
+						{
 							echo "<option value='add'>Added to Calendar</option>";
 							echo "<option value='org'>My Organizations</option>";
 							echo "<option value='mine'>Private Events</option>";
 						}
-					}
-					else
-					{
-						echo "<option value='add'>Added to Calendar</option>";
-						echo "<option value='org'>My Organizations</option>";
-						echo "<option value='mine'>Private Events</option>";
-					}
-				}?>
-        </select>
-      </form>
+					}?>
+			</select>
+		  </form>
+	  </div>
 	  <?php if ($loggedInAsUser): ?>
-	  <div id = "privateEvtId">
+	  <div class="col-sm-7" id = "privateEvtId">
 		Add your own event to the calendar here: <button id="privateEvtButton" data-toggle="modal" data-target="#privateEventModal">Add Event</button>
 	  </div>
 	  <?php endif?>

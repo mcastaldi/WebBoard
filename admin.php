@@ -152,8 +152,8 @@
 					}
 					else if($(this).val()=="modal"){
 						$('#typeDesc').html("When the announcement text is clicked on, a modal popup with information provided below will be shown.");
-						$('#announceUrl').rules("remove","required");
-						$('#annUrl').hide();
+						$('#announceUrl').rules("add","required");
+						$('#annUrl').show();
 					}
 				});
 		});

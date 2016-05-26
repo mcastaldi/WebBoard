@@ -1,19 +1,21 @@
-		<header>
-			<?php if($loggedInAsOrg) echo "<a href='createEvent.php'><button class='event'>Create Event</button></a>";?>
-			<?php if($loggedInAsAdmin) echo "<a href='admin.php'><button class='event'>Administration</button></a>";?>
-			<a href="index.php" id=logo>LTU Billboard</a>
+		<header class="row">
+			<?php if($loggedInAsOrg) echo "<div class='col-sm-2'><a href='createEvent.php'><button class='event'>Create Event</button></a></div>";?>
+			<?php if($loggedInAsAdmin) echo "<div class='col-sm-2'><a href='admin.php'><button class='event'>Administration</button></a></div>";?>
+			
+			<span  class="col-sm-5" align="left"><a href="index.php" id="logo">WebBoard</a></span>
+			<?php if(!$loggedInAsAdmin && !$loggedInAsOrg) echo "<div class='col-sm-2'></div>"?>
 			<?php if(!$loggedIn): ?>
-			<span class="log-in">
+			<div class="log-in col-sm-4" align="right">
 				<button class="button" id="loginButton" data-toggle="modal" data-target="#loginModal">Log In</button>&nbsp;&nbsp;&nbsp;&nbsp;
 				<br />
 				<a id="createAccountLink">or create an account</a>
-			</span>
+			</div>
 			<?php else: ?>
-			<span class="log-in">
+			<span class="log-in col-sm-4" align="left">
 				<form action="logout.php" method="post" role="form">
 					<div class="loggedInText" align="right">Logged in as:<br /> <?php echo ($loggedInAsOrg ? "<a href='organizations.php'>{$orgInfo['name']}</a>" : "<a href='accountSettings.php'>{$userInfo['firstName']}</a>");?></div>
 					<button class="button" id="logoutButton" type="submit" name="source" value="<?php echo $thisPage;?>">Log Out</button>
-				</form>
+				</form>	
 			</span>
 			<?php endif ?>
 			<br />

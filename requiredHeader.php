@@ -5,7 +5,7 @@
 			<span  class="col-sm-5" align="left"><a href="index.php" id="logo">WebBoard</a></span>
 			<?php if(!$loggedInAsAdmin && !$loggedInAsOrg) echo "<div class='col-sm-2'></div>"?>
 			<?php if(!$loggedIn): ?>
-			<div class="col-sm-4">
+			<div class="col-sm-5">
 				<div class="log-in">
 					<button class="button" id="loginButton" data-toggle="modal" data-target="#loginModal">Log In</button>&nbsp;&nbsp;&nbsp;&nbsp;
 					<br />
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 			<?php else: ?>
-			<div class="col-sm-4">
+			<div class="col-sm-5">
 				<div class="log-in">
 					<form action="logout.php" method="post" role="form">
 						<div class="loggedInText" align="right">Logged in as:<br /> <?php echo ($loggedInAsOrg ? "<a href='organizations.php'>{$orgInfo['name']}</a>" : "<a href='accountSettings.php'>{$userInfo['firstName']}</a>");?></div>

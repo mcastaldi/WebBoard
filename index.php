@@ -116,7 +116,7 @@
 <html>
 <head>
 	<title>LTU Billboard</title>
-	<link href="fcStylesheet.css" rel="stylesheet" />
+	<link href="stylesheet.css" rel="stylesheet" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	
 	<link href="bootstrap.css" rel="stylesheet" />

@@ -31,7 +31,6 @@ header{
   background-color:#003d78;
   color:white;
   border:none;
-  align:center;
   padding:0.4em 01em;
   font-size:1.1em;
 }
@@ -55,7 +54,6 @@ header{
   background-color:#003d78;
   color:white;
   border:none;
-  align:center;
   padding:0.4em 1em;
   font-size:1.1em;
 }
@@ -64,7 +62,6 @@ header{
   background-color:#003d78;
   color:white;
   border:none;
-  align:center;
   padding:0.4em 1em;
   font-size:1.1em;
 }
@@ -129,7 +126,6 @@ header a, .subheader a{
   background-color:#003d78;
   color:white;
   border:none;
-  align:center;
   font-size:1em;
 }
 #dropdown select{
